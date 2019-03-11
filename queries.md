@@ -42,7 +42,12 @@ where customerid = '92'
 
 ## list orders grouped by customer showing the number of orders per customer. _Rattlesnake Canyon Grocery_ should have 7 orders.
 
-select * from orders where customerid = (select customerid from customers where customername = 'Rattlesnake Canyon Grocery')
+select count(orders.customerid), customers.customername
+from orders
+inner join customers on orders.customerid = customers.customerid
+group by customers.customerid
+order by count(orders.customerid) desc
+
 
 ## list customers names and the number of orders per customer. Sort the list by number of orders in descending order. _Ernst Handel_ should be at the top with 10 orders followed by _QUICK-Stop_, _Rattlesnake Canyon Grocery_ and _Wartian Herkku_ with 7 orders each.
 
